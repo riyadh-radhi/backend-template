@@ -65,13 +65,22 @@
 
 ;; Very dirty solution, sorry!
 
-(defn get_age_smart [name year-of-birth]
-  {:name name :age (- (Integer. (subs  (.toString (new java.util.Date)) 24)) year-of-birth)})
+;; old solution
+;; (defn get_age_smart [name year-of-birth]
+;;   {:name name :age (- (Integer. (subs  (.toString (new java.util.Date)) 24)) year-of-birth)})
 
-(get_age_smart "Ali" 2001)
 
 ;; Correct, 2.5 points, half a point deducted for the hacks :D
 
 ;; Checkout the solutions by Yasmin and Ahmed Shanshal for a cleaner approach
 
 ;; Final score: 6.5 points.
+
+
+;; new solution
+
+
+(defn get_age_smart [name year-of-birth]
+  {:name name :age (- (.getValue (java.time.Year/now)) year-of-birth)})
+ 
+(get_age_smart "Ali" 2001)
