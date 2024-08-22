@@ -12,9 +12,10 @@
 ;;;;;;;;;;;;;;;;;;
 (-> ds
     tc/row-count)
+;; => 336776
 
-;; Each row represents a flight, 
-;; Total number of flights = Number of rows = 336776 
+;; Each row represents a flight,
+;; Total number of flights = Number of rows = 336776
 ;;;;;;;;;;;;;;;;;;
 
 ;; 2. How many unique carriers were there in total?
@@ -22,16 +23,18 @@
 (-> ds
     (tc/unique-by  :carrier)
     (tc/row-count))
+;; => 16
 
 ;; 16 unique carriers
 ;;;;;;;;;;;;;;;;;;
 
 ;; 3. How many unique airports were there in total?
 ;;;;;;;;;;;;;;;;;;
-(-> ds 
+(-> ds
     (tc/pivot->longer  [:origin :dest])
     (tc/unique-by :$value)
     (tc/row-count))
+;; => 107
 
 ;; 107 unique airports
 ;;;;;;;;;;;;;;;;;;
@@ -41,6 +44,21 @@
 (-> ds
     (tc/group-by :month)
     (tc/mean :arr-delay))
+;; => _unnamed [12 2]:
+;;    | :$group-name |     summary |
+;;    |-------------:|------------:|
+;;    |            1 |  6.12997197 |
+;;    |           10 | -0.16706269 |
+;;    |           11 |  0.46134737 |
+;;    |           12 | 14.87035529 |
+;;    |            2 |  5.61301936 |
+;;    |            3 |  5.80757652 |
+;;    |            4 | 11.17606298 |
+;;    |            5 |  3.52150882 |
+;;    |            6 | 16.48132964 |
+;;    |            7 | 16.71130668 |
+;;    |            8 |  6.04065239 |
+;;    |            9 | -4.01836357 |
 
 ;;;;;;;;;;;;;;;;;;
 
@@ -58,6 +76,12 @@
     (tc/mean :distance)
     (tc/order-by "summary" :desc)
     (tc/head 1))
+;; => _unnamed [1 2]:
+;;    |           :$group-name | summary |
+;;    |------------------------|--------:|
+;;    | Hawaiian Airlines Inc. |  4983.0 |
 
 ;; Hawaiian Airlines Inc.
 ;;;;;;;;;;;;;;;;;;
+
+;; Full mark. 7 points.
